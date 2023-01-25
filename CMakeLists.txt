@@ -8,8 +8,8 @@ project(${PackageName})
 
 # project version
 SET( ${PackageName}_VERSION_MAJOR 0 )
-SET( ${PackageName}_VERSION_MINOR 16 )
-SET( ${PackageName}_VERSION_PATCH 6 )
+SET( ${PackageName}_VERSION_MINOR 18 )
+SET( ${PackageName}_VERSION_PATCH 0 )
 
 SET( ${PackageName}_VERSION "${${PackageName}_VERSION_MAJOR}.${${PackageName}_VERSION_MINOR}" )
 SET( ${PackageName}_SOVERSION "${${PackageName}_VERSION_MAJOR}.${${PackageName}_VERSION_MINOR}" )
@@ -41,32 +41,12 @@ option(INSTALL_COMPACT_FILES "Copy compact files to install area" OFF)
 find_package(DD4hep REQUIRED COMPONENTS DDRec DDG4 DDParsers)
 dd4hep_set_compiler_flags()
 
-SET( DD4hep_REDUCED_COMPONENT ${DD4hep_COMPONENT_LIBRARIES} )
-## Drop DDG4 from components for normal geometry plugins
-LIST( REMOVE_AT DD4hep_REDUCED_COMPONENT -2 )
-
 find_package ( ROOT REQUIRED COMPONENTS Geom GenVector)
-include(${ROOT_USE_FILE})
 message ( STATUS "ROOT_VERSION: ${ROOT_VERSION}" )
 
-find_package( Boost REQUIRED ) 
-include_directories( SYSTEM ${Boost_INCLUDE_DIRS} )
-
 find_package( Geant4 REQUIRED ) 
-include(${Geant4_USE_FILE})
-
 find_package( LCIO REQUIRED)
-#find_package( GEAR REQUIRED)
 
-include_directories( ${CMAKE_SOURCE_DIR}/detector/include )
-include_directories( SYSTEM
-  ${DD4hep_INCLUDE_DIRS}
-  ${DD4hep_COMPONENTS_INCLUDE_DIRS}
-  ${ROOT_INCLUDE_DIR}
-  ${ROOT_INCLUDE_DIRS}
-  ${LCIO_INCLUDE_DIRS}
- )
-#  ${GEAR_INCLUDE_DIRS}
 
 file(GLOB sources 
   ./detector/tracker/*.cpp 
@@ -83,24 +63,22 @@ file(GLOB G4sources
   ./plugins/CaloPreShowerSDAction.cpp
 )
 
-
-#file(GLOB headers ./ILD/include/*.h)
-
 if(DD4HEP_USE_PYROOT)
   ROOT_GENERATE_DICTIONARY(G__ILDEx ${headers} LINKDEF include/ROOT/LinkDef.h)
   list(APPEND sources G__ILDEx.cxx)
 endif()
 
-#Create target, library, rootmap, install
-
 add_dd4hep_plugin(${PackageName} SHARED ${sources})
-
 add_dd4hep_plugin(${PackageName}G4 SHARED ${G4sources})
 
-target_link_libraries(${PackageName} ${DD4hep_LIBRARIES} ${DD4hep_REDUCED_COMPONENT} ${ROOT_LIBRARIES} ${LCIO_LIBRARIES})
+target_include_directories(${PackageName}   PRIVATE ${CMAKE_SOURCE_DIR}/detector/include )
+target_include_directories(${PackageName}G4 PRIVATE ${CMAKE_SOURCE_DIR}/detector/include )
 
-target_link_libraries(${PackageName}G4 ${DD4hep_LIBRARIES} ${DD4hep_COMPONENT_LIBRARIES} ${ROOT_LIBRARIES} ${Geant4_LIBRARIES} ${LCIO_LIBRARIES})
+target_include_directories(${PackageName}   SYSTEM PUBLIC ${LCIO_INCLUDE_DIRS})
+target_include_directories(${PackageName}G4 SYSTEM PUBLIC ${LCIO_INCLUDE_DIRS})
 
+target_link_libraries(${PackageName}   DD4hep::DDCore DD4hep::DDRec DD4hep::DDParsers ${ROOT_LIBRARIES} ${LCIO_LIBRARIES})
+target_link_libraries(${PackageName}G4 DD4hep::DDCore DD4hep::DDRec DD4hep::DDParsers DD4hep::DDG4 ${ROOT_LIBRARIES} ${Geant4_LIBRARIES} ${LCIO_LIBRARIES})
 
 #Create this_package.sh file, and install
 dd4hep_instantiate_package(${PackageName})
