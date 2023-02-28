@@ -1,3 +1,75 @@
+# v00-18
+
+* 2022-12-02 Daniel Jeans ([PR#261](https://github.com/ilcsoft/lcgeo/pull/261))
+  - bug fix: no longer carry over energy to next event (sometimes affected lowpt hits)
+  - address one FIXME: create highpt hits even if steps have not passed the padrow centre
+  - some slight code cleanup and reorganisation to hopefully make it clearer to read
+
+* 2022-11-07 Thomas Madlener ([PR#260](https://github.com/ilcsoft/lcgeo/pull/260))
+  - Remove gcc8 based workflow because the underlying nightly builds are no longer available
+  - Update github actions to latest available versions.
+
+* 2022-11-07 Daniel Jeans ([PR#250](https://github.com/ilcsoft/lcgeo/pull/250))
+  - ILD_l5[_o1,2,3,4]_v09 models with CLIC-inspired all silicon outer tracker in place of TPC+SET
+  - otherwise identical to ILD_l5_v02 model
+
+# v00-17
+
+* 2022-10-13 Andre Sailer ([PR#259](https://github.com/ilcsoft/lcgeo/pull/259))
+  - CLIC_o3_v15: New detector model with corrected TrackerEndcapSupport with the same thicknesses in forward and backward directions
+  - FCCee_o1_v05: New detector model with corrected TrackerEndcapSupport, with the same thicknesses in forward and backward directions
+  - FCCee_o2_v02: New detector model with corrected TrackerEndcapSupport, with the same thicknesses in forward and backward directions
+
+* 2022-08-19 Andre Sailer ([PR#258](https://github.com/ilcsoft/lcgeo/pull/258))
+  - TrackerEndcapSupport_o1_v02: Fix the thickness of the whole layer volume, was twice as thick as needed to be
+
+* 2022-08-18 Nazar Bartosik ([PR#257](https://github.com/ilcsoft/lcgeo/pull/257))
+  - Add TrackerEndcapSupport_o1_v02, contributed by @bartosik-hep. Fixes an issue that the reflected sides in TrackerEndcapSupport_o1_v01 were twice as thick as the non-reflected sides.
+
+* 2022-07-28 Andre Sailer ([PR#256](https://github.com/ilcsoft/lcgeo/pull/256))
+  - LinearSortingPolicy: change return value to 1 for success, adapt to recent changes in DD4hep that took the actual return value from the plugin, (https://github.com/AIDASoft/DD4hep/pull/936)
+
+* 2022-07-27 Andre Sailer ([PR#255](https://github.com/ilcsoft/lcgeo/pull/255))
+  - TPCSDAction: adapt to new const G4step interface in dd4hep 1.21
+  - CaloPreShowerSDAction: adapt to new const G4step interface in dd4hep 1.21
+
+# v00-16-08
+
+* 2022-06-14 Valentin Volkl ([PR#253](https://github.com/iLCSoft/lcgeo/pull/253))
+  - Move SiD_o2_v04 beampipe constants to global list to fix an error in key4hep builds
+
+* 2022-06-09 Dan Protopopescu ([PR#252](https://github.com/iLCSoft/lcgeo/pull/252))
+  - Added SiD_o2_v04, which is an updated version of o2_v03, containing a few fixes, among which
+      - correct size and position of ECal layer 0 via new driver ECalBarrel_o2_v04_geo.cpp
+      - new beam pipe by Chris Potter
+      - removed brass HCal option
+
+* 2022-03-19 Valentin Volkl ([PR#251](https://github.com/iLCSoft/lcgeo/pull/251))
+  - Fix more hyphens in xml comments
+
+* 2022-03-09 Andre Sailer ([PR#249](https://github.com/iLCSoft/lcgeo/pull/249))
+  - Rebrand LCGEO as Lepton Collider GEOmetry, Fix #248
+
+# v00-16-07
+
+* 2021-11-05 scott snyder ([PR#246](https://github.com/iLCSoft/lcgeo/pull/246))
+  - Fixed XML comment syntax in SiD_o2_v03 XML files.
+
+* 2021-09-01 Andre Sailer ([PR#247](https://github.com/iLCSoft/lcgeo/pull/247))
+  - CI: Run against LCG_100, clang10, gcc10 and LCG_99python2 gcc8
+  - CMake: restructure main CMake file, more use of targets
+  - Remove requirement for Boost, wasn't actually used for some time (still needed by DD4hep)
+  - GenericEndcapCalo: move setting of sensitive type because of error in SID simulation with newer ddsim
+
+* 2020-09-21 Valentin Volkl ([PR#242](https://github.com/iLCSoft/lcgeo/pull/242))
+  - Add standard cpp/dd4hep .gitignore
+
+* 2020-09-18 vvolkl ([PR#244](https://github.com/iLCSoft/lcgeo/pull/244))
+  - Fix print statement for python3 compatibiltiy
+
+* 2020-05-25 Valentin Volkl ([PR#243](https://github.com/iLCSoft/lcgeo/pull/243))
+  - Add INSTALL_COMPACT_FILES option (default: OFF) to copy compact files to install area
+
 # v00-16-06
 
 * 2020-03-02 Remi Ete ([PR#241](https://github.com/iLCSoft/lcgeo/pull/241))
