@@ -34,6 +34,7 @@ ENDIF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 option(BUILD_TESTING "Enable and build tests" ON)
 option(CMAKE_MACOSX_RPATH "Build with rpath on macos" ON)
 option(INSTALL_COMPACT_FILES "Copy compact files to install area" OFF)
+option(INSTALL_MUONC_FILES "Install Geometry files for MuonCollider" OFF)
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -103,3 +104,14 @@ INSTALL(FILES ${hfiles}
 if(INSTALL_COMPACT_FILES)
   INSTALL(DIRECTORY CaloTB CLIC FCalTB FCCee ILD fieldmaps SiD DESTINATION share/lcgeo/compact/ )
 endif()
+
+#--- install geometry files ----------------------------
+if(INSTALL_MUONC_FILES)
+  SET(MUONC_GEO_DIR ${CMAKE_INSTALL_PREFIX}/share/lcgeo/compact/
+      CACHE PATH "Installation directory for geometry files")
+
+  INSTALL(DIRECTORY MuColl DESTINATION ${MUONC_GEO_DIR}
+          PATTERN "*.md" EXCLUDE
+          PATTERN "CLIC_o*" EXCLUDE)
+endif()
+
