@@ -15,7 +15,7 @@
     <detectors>
         <comment>Nozzle</comment>
         
-        <detector name="NozzleW_right" type="DD4hep_PolyconeSupport" vis="NozzleWVis" region="NozzleRegion">
+        <detector name="NozzleW_right" type="DD4hep_PolyconeSupport" vis="NozzleWVis" region="NozzleRegion" limits="NozzleRegionLimitSet">
             <comment>Internal part of the nozzle: Tungsten</comment>
             <material name="Tungsten"/>
             <zplane z="Nozzle_min_z" rmin="1*cm" rmax="1*cm" />
@@ -27,7 +27,7 @@
         </detector>
 
 
-        <detector name="NozzleW_left" type="DD4hep_PolyconeSupport" vis="NozzleWVis" region="NozzleRegion">
+        <detector name="NozzleW_left" type="DD4hep_PolyconeSupport" vis="NozzleWVis" region="NozzleRegion" limits="NozzleRegionLimitSet">
             <comment>Internal part of the nozzle: Tungsten</comment>
             <material name="Tungsten"/>
             <zplane z="-Nozzle_min_z" rmin="1*cm" rmax="1*cm" />
@@ -39,7 +39,7 @@
         </detector>
 
 
-        <detector name="NozzleBCH_right" type="DD4hep_PolyconeSupport" vis="NozzleBCHVis" region="NozzleRegion">
+        <detector name="NozzleBCH_right" type="DD4hep_PolyconeSupport" vis="NozzleBCHVis" region="NozzleRegion" limits="NozzleRegionLimitSet">
             <comment>Outer part of the nozzle: Borated Polyehtylene</comment>
             <material name="BCH2"/>
             <zplane z="Nozzle_kink_z" rmin="15*cm" rmax="Nozzle_kink_max_r" />
@@ -48,7 +48,7 @@
         </detector>
 
 
-        <detector name="NozzleBCH_left" type="DD4hep_PolyconeSupport" vis="NozzleBCHVis" region="NozzleRegion">
+        <detector name="NozzleBCH_left" type="DD4hep_PolyconeSupport" vis="NozzleBCHVis" region="NozzleRegion" limits="NozzleRegionLimitSet">
             <comment>Outer part of the nozzle: Borated Polyehtylene</comment>
             <material name="BCH2"/>
             <zplane z="-Nozzle_kink_z" rmin="15*cm" rmax="Nozzle_kink_max_r" />

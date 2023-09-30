@@ -141,11 +141,17 @@
 		<limitset name="cal_limits">
 			<limit name="step_length_max" particles="*" value="5.0" unit="mm"/>
 		</limitset>
+
+		<limitset name="NozzleRegionLimitSet">
+			<limit name="track_length_max" particles="*" value="0.1" unit="mm"/>
+		</limitset>
 	</limits>
 
 	<regions>
 		<region name="BeampipeRegion"/>
-		<region name="NozzleRegion"/>
+		<region name="NozzleRegion">
+			<limitsetref name="NozzleRegionLimitSet"/>
+		</region>
 		<region name="VertexBarrelRegion"/>
 		<region name="VertexEndcapRegion"/>
 		<region name="InnerTrackerBarrelRegion"/>
